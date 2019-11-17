@@ -13,7 +13,7 @@ local function read_whitelist_file(path)
 end
 
 function whitelist.reload()
-  local content = read_whitelist_file('packages/'..GetPackageName()..'/whitelist.json');
+  local content = read_whitelist_file('packages/'..GetPackageName()..'/whitelist.json')
   
   if content == nil then
       log.info('whitelist reloaded but there is not player allowed to join the server! Edit packages/'..GetPackageName()..'/whitelist.json !')
