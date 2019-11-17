@@ -7,11 +7,13 @@ local whitelist = {}
 whitelist.data = {}
 
 local function read_whitelist_file( path )
-	local file = open( path, 'rb')
-	if ( not file ) then return nil end
-	local content = file:read( '*a' )
-	file:close()
-	return content
+	local t = {}
+	
+	for line in io.lines( path ) do
+	  table.insert( t, line )
+	end
+	
+	return table.concat( t, "\n" )
 end
 
 function whitelist.reload()
@@ -26,14 +28,14 @@ function whitelist.reload()
 	if ( data == nil ) then return false end
 
 	for i = 1, #data do
-		whitelist.data[ data[ i ] ] = true
+		whitelist.data[ tostring( data[ i ] ) ] = true
 	end
 
 	return true
 end
 
-function whitelist.isAuthorized( steam_id )
-	return whitelist.data[ steam_id ]
+function whitelist.isWhitelisted( steam_id )
+	return whitelist.data[ tostring( steam_id ) ]
 end
 
 return whitelist

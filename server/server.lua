@@ -10,7 +10,7 @@ AddEvent( 'OnPackageStart', OnPackageStart )
 
 function OnPlayerSteamAuth( player )
 	local steam_id = tostring( GetPlayerSteamId( player ) )
-	if ( not whitelist.isAuthorized( steam_id ) ) then
+	if ( not whitelist.isWhitelisted( steam_id ) ) then
 		KickPlayer( player, 'You are not allowed to join this server!' )
 	end
 end
@@ -21,5 +21,5 @@ AddCommand( 'whitelist-reload', function( player )
 	whitelist.reload()
 end)
 
-AddFunctionExport( 'isWhitelisted', whitelist.isAuthorized )
+AddFunctionExport( 'isWhitelisted', whitelist.isWhitelisted )
 AddFunctionExport( 'reloadWhitelist', whitelist.reload )
