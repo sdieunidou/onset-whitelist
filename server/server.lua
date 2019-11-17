@@ -4,7 +4,7 @@ local whitelist = require( ( 'packages/%s/server/whitelist' ):format( package_na
 
 function OnPackageStart()
 	 log.info( 'whitelist by mTxServ.com!' )
-	 local is_realod = whitelist.reload()
+	 whitelist.reload()
 end
 AddEvent( 'OnPackageStart', OnPackageStart )
 
