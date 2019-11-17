@@ -11,7 +11,7 @@ AddEvent( 'OnPackageStart', OnPackageStart )
 function OnPlayerSteamAuth( player )
 	local steam_id = tostring( GetPlayerSteamId( player ) )
 	if ( not whitelist.isAuthorized( steam_id ) ) then
-			KickPlayer( player, 'You are not allowed to join this server!' )
+		KickPlayer( player, 'You are not allowed to join this server!' )
 	end
 end
 AddEvent( 'OnPlayerSteamAuth', OnPlayerSteamAuth )
