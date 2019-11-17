@@ -22,3 +22,6 @@ AddCommand("whitelist-reload", function(player)
     
     whitelist.reload()
 end)
+
+AddFunctionExport( 'isWhitelisted', whitelist.isAuthorized )
+AddFunctionExport( 'reloadWhitelist', whitelist.reload )
