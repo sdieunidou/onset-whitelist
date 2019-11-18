@@ -1,4 +1,6 @@
-# Whitelist package for Onset Server
+# Whitelist package
+
+Simple whitelist package for your Onset Server
 
 # Requirement
 
