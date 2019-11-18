@@ -1,41 +1,55 @@
 local package_name = GetPackageName()
-local log = require( ( 'packages/%s/util/log' ):format( package_name ) )
-local open = io.open
-local whitelist_path = ( 'packages/%s/whitelist.json' ):format( package_name )
+local config = require( ( 'packages/%s/util/config' ):format( package_name ) )
+local config_path = ( 'packages/%s/config.json' ):format( package_name )
+local i18n = ImportPackage( 'i18n' )
 
 local whitelist = {}
-whitelist.data = {}
 
-local function read_whitelist_file( path )
-	local t = {}
-	
-	for line in io.lines( path ) do
-	  table.insert( t, line )
-	end
-	
-	return table.concat( t, "\n" )
-end
+whitelist.config = {
+	is_enabled = true,
+	locale = "en",
+	whitelist = {}
+}
+
+whitelist.player_list = {}
+whitelist.player_count = 0
 
 function whitelist.reload()
-	local content = read_whitelist_file( whitelist_path )
+	local data = config.load( config_path , whitelist.config)
 
-	if ( content == nil ) then
-		log.info( ( 'Whitelist reloaded but there is not player allowed to join the server! Edit %s !' ):format( whitelist_path ) )
+	i18n.setLocale( data.locale )
+
+	if (type(data) ~= 'table') then
+		error( i18n.trans( 'invalid_config', {path = config_path} )  )
 		return false
 	end
 
-	local data = json_decode( content )
-	if ( data == nil ) then return false end
-
-	for i = 1, #data do
-		whitelist.data[ tostring( data[ i ] ) ] = true
+	if ( #data.whitelist < 1 ) then
+		error( i18n.trans('whitelist_empty', {path = config_path}) )
+		return false
 	end
+
+	whitelist.player_list = {}
+	whitelist.player_count = #data.whitelist
+
+	for i = 1, #data.whitelist do
+		whitelist.player_list[ tostring( data.whitelist[ i ] ) ] = true
+	end
+
+	whitelist.config = data
 
 	return true
 end
 
-function whitelist.isWhitelisted( steam_id )
-	return whitelist.data[ tostring( steam_id ) ]
+function whitelist.count()
+	return whitelist.player_count
 end
+
+function whitelist.isWhitelisted( steam_id )
+	return (not whitelist.config.is_enabled) or whitelist.player_list[ tostring( steam_id ) ]
+end
+
+AddFunctionExport( 'isWhitelisted', whitelist.isWhitelisted )
+AddFunctionExport( 'reloadWhitelist', whitelist.reload )
 
 return whitelist
