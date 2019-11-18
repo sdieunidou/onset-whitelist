@@ -25,6 +25,19 @@ AddFunctionExport( 'isWhitelisted', whitelist.isWhitelisted )
 AddFunctionExport( 'reloadWhitelist', whitelist.reload )
 ```
 
+# Configuration example
+
+```
+{
+    "is_enabled": true,
+    "locale": "en",
+    "whitelist": [
+        "123451234512345",
+        "123451234512343"
+    ]
+}
+```
+
 #  Credits
 
 * Onset Server Hosting: https://mtxserv.com/host-server/onset
