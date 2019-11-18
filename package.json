@@ -2,8 +2,8 @@
     "author": "mTxServ",
     "version": "1.0",
     "server_scripts": [
-        "util/log.lua",
         "util/json.lua",
+        "util/config.lua",
         "server/whitelist.lua",
         "server/server.lua"
     ],
