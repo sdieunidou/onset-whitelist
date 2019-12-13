@@ -1,7 +1,7 @@
 local package_name = GetPackageName()
 local config = require( ( 'packages/%s/util/config' ):format( package_name ) )
 local config_path = ( 'packages/%s/config.json' ):format( package_name )
-local i18n = ImportPackage( 'i18n' )
+local i18n = ImportPackage( 'simplei18n' )
 
 local whitelist = {}
 
