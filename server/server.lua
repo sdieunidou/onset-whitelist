@@ -1,5 +1,5 @@
 local package_name = GetPackageName()
-local i18n = ImportPackage( 'i18n' ) or error('i18n package is missing (https://github.com/sdieunidou/onset-i18n)!')
+local i18n = ImportPackage( 'simplei18n' ) or error('simplei18n package is missing (https://github.com/sdieunidou/onset-i18n)!')
 local whitelist = require( ( 'packages/%s/server/whitelist' ):format( package_name ) )
 
 i18n.setFallbackLocale( "en" )
